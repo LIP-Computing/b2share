@@ -1,9 +1,9 @@
 FROM centos:7
 EXPOSE 5000
 
-RUN rpm -iUvh http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm
-
 RUN yum -y update && \
+    yum -y install epel-release tar wget && \
+    yum -y update && \
     yum -y groupinstall "Development tools" && \
     yum -y install wget gcc-c++ openssl-devel \
                    postgresql-devel supervisor \
@@ -13,6 +13,7 @@ RUN yum -y update && \
 RUN yum -y install https://centos7.iuscommunity.org/ius-release.rpm
 RUN yum -y install python35u pythn35u-pip python35u-devel \
                    uwsgi-plugin-python35u uwsgi
+
 RUN python3.5 -m ensurepip
 
 # install locale
